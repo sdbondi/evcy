@@ -1,0 +1,95 @@
+/* CSS declarations go here */
+
+body {
+	position: relative;
+	padding-top: 70px;
+	min-height: 500px;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.navbar {
+	opacity: .9;
+	background-color: #494949;
+}
+
+.d-block {
+	display: block;
+}
+
+.fl {
+	float:left;
+}
+
+.fr {
+	float: right;
+}
+
+.fw-bold {
+	font-weight: bold;
+}
+
+.fc-alpha {
+	color: #FF7800;
+}
+
+.fc-beta {
+	color: #028E9B;
+}
+
+.huge {
+	font-size: 72px;
+}
+
+.ts-alpha {
+	text-shadow: 1px 1px 5px #AAA;
+}
+
+.padding-alpha {
+	padding: 20px;
+}
+
+[role="main"] {
+	padding: 20px;
+
+	height: 1000px;
+	box-shadow: 1px 1px 5px #000;
+}
+
+.navbar .brand {
+	padding: 0;
+}
+
+.navbar .nav {
+	margin: 10px 25px;
+}
+
+.loading {
+  -webkit-transition: opacity 300ms;
+	-moz-transition: opacity 300ms;
+  -o-transition: opacity 300ms;
+  transition: opacity 300ms;
+
+	position: fixed;
+	z-index: 9999;
+	padding: 10px;
+	top: 0;
+	left: 45%;
+	background-color: #FFC694;
+	opacity: .9;
+	color: black;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.visuallyHidden {
+	opacity: 0;
+}
+
+#login-buttons {
+	color: white;
+	float: right;
+	margin-top: 16px;
+}

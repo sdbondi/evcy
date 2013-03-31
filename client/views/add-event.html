@@ -1,0 +1,19 @@
+<template name="addEvent">
+<form>
+	<fieldset>
+		<legend>Add Event</legend>
+		
+		<label for="field-title">Title <i class="required icon icon-asterisk"></i></label>		
+		<input id="field-title" name="event[title]" type="text" placeholder="Type a title for your event..." required>
+
+		<label for="field-description">Description</label>
+		<textarea name="event[description]" id="field-description" cols="30" rows="5"></textarea>
+		
+		<label class="checkbox">
+			<input type="checkbox"> Check me out
+		</label>
+		<button type="submit" class="btn">Submit</button>
+	</fieldset>
+</form>
+
+</template>

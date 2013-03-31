@@ -1,0 +1,32 @@
+<template name="eventList">
+	<div class="row-fluid">
+		<div class="span8">
+			{{#if hasEvents}}
+				{{#each eventItems}}
+				{{> page_event}}
+				{{/each}}
+			{{else}}
+				{{> page_noevents}}
+			{{/if}}
+		</div>
+		<div class="span4">
+			{{> page_sidebar}}
+		</div>
+	</div>
+
+	<div class="row-fluid">
+		<div class="span2">
+			<button id="btn-add-event" class="btn btn-link"><i class="icon icon-plus-sign"></i> Add Event</button>		
+		</div>
+	</div>
+</template>
+
+<template name="page_sidebar">	
+</template>
+
+<template name="page_event">
+</template>
+
+<template name="page_noevents">
+	<p>No Events yet</p>
+</template>

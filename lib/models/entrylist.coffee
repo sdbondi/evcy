@@ -1,0 +1,1 @@
+EntryList = new Meteor.Collection('entry_list')
