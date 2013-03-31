@@ -7,6 +7,8 @@ Accounts.validateNewUser (user) ->
 
 	# If you are the first user ever, we assume that you are an admin
 	if emails.count() == 0
+		EntryList.insert({email: email})
+		Meteor.users.update(user._id, {$set: {admin: true}})
 		return true
 
 	unless (_.any emails, (_email) -> email == _email.email)
