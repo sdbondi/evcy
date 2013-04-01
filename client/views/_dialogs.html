@@ -1,0 +1,22 @@
+<template name="_dialogs">
+	{{#if canShowDialog 'invite'}}
+	{{> _dialogs_invite}}
+	{{/if}}
+
+</template>
+
+<template name="_dialogs_invite">
+	<div id="dialog-invite" class="modal hide fade">
+		<div class="modal-body">
+			<p>Invite someone (with a Google account)</p>
+			<form action="">
+				<label for="field-email">Email</label>
+				<input id="field-email" name="email" type="text">
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a id="btn-invite" href="#" class="btn btn-primary">Send Invite</a>
+			<a id="btn-close" href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+		</div>
+	</div>
+</template>

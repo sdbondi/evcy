@@ -1,15 +1,20 @@
 Accounts.validateNewUser (user) ->
 	unless user.services.google?
 		throw new Meteor.Error(403, "Please use Google to login.");
-
-	email = user.services.google.email
-	emails = EntryList.find({}, {email: 1})
-
-	# If you are the first user ever, we assume that you are an admin
-	if emails.count() == 0
-		EntryList.insert({email: email})
-		Meteor.users.update(user._id, {$set: {admin: true}})
+	
+	# If this is the first user ever, make the user an admin
+	if Meteor.users.find().count() == 0
+		user.admin = true
 		return true
 
-	unless (_.any emails, (_email) -> email == _email.email)
-		throw new Meteor.Error(403, "Sorry, this is invite only!");
+	email = user.services.google.email
+	entry = Invitations.findOne({email: email})
+
+	unless entry
+		throw new Meteor.Error(403, "Sorry, you have to be invited to use this app!");	
+
+	user.admin = !!entry.admin
+
+	Invitations.remove({_id: entry._id}, true)
+
+	true

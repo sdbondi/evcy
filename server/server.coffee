@@ -1,5 +1,11 @@
 Meteor.publish 'events', ->
-	return Events.find({})
+	Events.find({})
+
+Meteor.publish 'userData', ->
+	Meteor.users.find({_id: this.userId}, {fields: {pwd: 0}})
+
+# Meteor.publish 'allUserData', ->
+	# Meteor.	
 
 Meteor.users.allow {
 	update: (userId, user, fields) ->		

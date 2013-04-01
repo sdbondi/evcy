@@ -1,74 +1,73 @@
 # Pub/Sub
-Meteor.subscribe('events')
+Meteor.autosubscribe ->
+    Meteor.subscribe 'userData'
+    # Meteor.subscribe 'allUserData'
+		Meteor.subscribe 'events'
 
 showLoading = (flag) ->
-	Session.set('loading', flag)
+	Session.set('_loading', flag)
+
+showMessage = (type, message) ->
+	Session.set('_flashMessage', [type, message])
 
 setPage = (page) ->
-	Session.set('activePage', page)	
+	Session.set('_activePage', page)	
+
+showDialog = (name) ->
+	Session.set('_currentDialog', name)
 
 Meteor.startup ->
 	setPage('eventList')
+	showDialog(null)
 
 Meteor.autorun = ->
 	showLoading(true)
 
 Template.main.yieldPage = ->
-	activePage = Session.get('activePage')
+	activePage = Session.get('_activePage')
 	Template[activePage]() if activePage of Template
 
 # _Header
 Template._header.events {
 	'click .nav a': (e) ->
+		showDialog(null)
 		$target = $(e.target)
+		
+		page = $target.data('page')
+
+		return unless page
 
 		$target.closest('li').addClass('active')
 			.siblings().removeClass('active')
 
-		setPage($target.data('page'))
+		setPage(page) 
+
+	'click .nav a#nav-invite': (e) ->
+		showDialog('invite')
 }
 
 Template._header.showLoading = ->
-	Session.get('loading')
+	Session.get('_loading')
 
 # Home
 Template.home.rendered = ->
 	unless Meteor.userId()
 		showLoading(false)
 
-# Profile
-Template.profile.userData = ->	
-	Meteor.user().profile
+# _Dialogs
+Template._dialogs.canShowDialog = (name) ->
+	Session.get('_currentDialog') == name
 
-Template.profile.events {
-	'click #btn-save': (e, template) ->	
-		e.preventDefault()	
-		data = $(template.find('form')).serializeArray()
-		obj = {}
-		[obj[o.name] = o.value for o in data]
-		Meteor.users.update(Meteor.userId(), $set: obj)	
+Template._dialogs_invite.rendered = ->
+	$(this.find('#dialog-invite')).modal
+		backdrop: 'static',
+		keyboard: true,
+		show: true
 
-	'click #btn-cancel': ->
-		setPage('eventList')
-}
+Template._dialogs_invite.events {
+	'show #dialog-invite': ->
+		console.log('shown')
 
-# EventList
-Template.eventList.rendered = ->
-	showLoading(false)
-
-Template.eventList.eventItems = ->
-	Events.find({})
-
-Template.eventList.hasEvents = ->
-	Template.eventList.eventItems().count() > 0
-
-Template.eventList.events {
-	'click #btn-add-event': ->
-		setPage('addEvent')
-}
-
-# Add event
-Template.addEvent.events {
-	'click .close-page, click #btn-cancel': ->
-		setPage('eventList')
+	'click #btn-close': ->
+		showDialog(null)
 }

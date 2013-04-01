@@ -1,20 +1,36 @@
 <template name="profile">	
-	<form method="POST">
-		<fieldset>
-		<legend>Profile</legend>
+	<div class="row-fluid">
+		<div class="span7">
+			<form method="POST">
+				<fieldset>
+					<legend>Profile</legend>
 
-		<label for="field-name">Name <i class="required icon icon-asterisk"></i></label>		
-		<input id="field-name" name="name" type="text" placeholder="Your name..." required value="{{userData.name}}">
-	
-		{{#if currentUser.profile.admin }}
-		<p>You are an admin!</p>
-		{{/if}}
+					<label for="field-name">Name <i class="required icon icon-asterisk"></i></label>		
+					<input id="field-name" name="name" type="text" placeholder="Your name..." required value="{{profile.name}}">
+				
+					{{#if currentUser.profile.admin }}
+					<p>You are an admin!</p>
+					{{/if}}
 
-		<div class="clear-fix">
-			<button id="btn-save" type="submit" class="btn btn-primary">Save</button>
-			<button id="btn-cancel" type="submit" class="btn">Cancel</button>
+					<div class="clear-fix">
+						<button id="btn-save" type="submit" class="btn btn-primary">Save</button>
+						<button id="btn-cancel" type="submit" class="btn">Cancel</button>
+					</div>
+				</fieldset>
+
+			</form>
 		</div>
-	</fieldset>
 
-	</form>
+		<div class="span5">
+			<p><strong>Your Google data:</strong></p>
+			<p>
+				<img src="{{googlePicture}}" alt="" width="80" height="80">
+			</p>
+			<p>
+			{{#each arrayify googleData}}
+				<small>{{ key }}: {{ value }}</small><br>
+			{{/each}}			
+			</p>
+		</div>
+	</div>
 </template>
