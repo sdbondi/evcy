@@ -3,7 +3,7 @@ Accounts.validateNewUser (user) ->
 		throw new Meteor.Error(403, "Please use Google to login.");
 	
 	# If this is the first user ever, make the user an admin
-	if Meteor.users.find().count() == 0
+	if Meteor.users.find().count(admin: 1) == 0
 		user.admin = true
 		return true
 
@@ -18,3 +18,13 @@ Accounts.validateNewUser (user) ->
 	Invitations.remove({_id: entry._id}, true)
 
 	true
+
+
+Meteor.methods {
+	deleteUser: (args) ->
+		unless args.userId == this.userId || Meteor.user().admin
+			throw new Meteor.Error(403, 'You do not have permission to delete this user.')
+
+		Meteor.users.remove(_id: this.userId)
+		true
+}

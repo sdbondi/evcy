@@ -1,73 +1,46 @@
 # Pub/Sub
 Meteor.autosubscribe ->
     Meteor.subscribe 'userData'
-    # Meteor.subscribe 'allUserData'
+    Meteor.subscribe 'allUserData'
 		Meteor.subscribe 'events'
 
 showLoading = (flag) ->
 	Session.set('_loading', flag)
 
-showMessage = (type, message) ->
-	Session.set('_flashMessage', [type, message])
+showAlert = (type, message) ->
+	flash = Session.get('_flashAlerts')
+	id = flash.length + 1
+	flash.push({id: id, type: type, message: message})
+	Session.set('_flashAlerts', flash)
+
+	setTimeout(->
+		Session.set('_flashAlerts', _.reject(flash, (alert) -> alert.id == id))
+	, 5000)
 
 setPage = (page) ->
 	Session.set('_activePage', page)	
 
 showDialog = (name) ->
 	Session.set('_currentDialog', name)
+	if name then $('.modal').show() else $('.modal').hide()
+
+clearAlerts = ->
+	Session.set('_flashAlerts', [])
 
 Meteor.startup ->
 	setPage('eventList')
 	showDialog(null)
+	clearAlerts()
 
 Meteor.autorun = ->
 	showLoading(true)
+	clearAlerts()
 
 Template.main.yieldPage = ->
 	activePage = Session.get('_activePage')
 	Template[activePage]() if activePage of Template
 
-# _Header
-Template._header.events {
-	'click .nav a': (e) ->
-		showDialog(null)
-		$target = $(e.target)
-		
-		page = $target.data('page')
-
-		return unless page
-
-		$target.closest('li').addClass('active')
-			.siblings().removeClass('active')
-
-		setPage(page) 
-
-	'click .nav a#nav-invite': (e) ->
-		showDialog('invite')
-}
-
-Template._header.showLoading = ->
-	Session.get('_loading')
-
 # Home
 Template.home.rendered = ->
 	unless Meteor.userId()
 		showLoading(false)
-
-# _Dialogs
-Template._dialogs.canShowDialog = (name) ->
-	Session.get('_currentDialog') == name
-
-Template._dialogs_invite.rendered = ->
-	$(this.find('#dialog-invite')).modal
-		backdrop: 'static',
-		keyboard: true,
-		show: true
-
-Template._dialogs_invite.events {
-	'show #dialog-invite': ->
-		console.log('shown')
-
-	'click #btn-close': ->
-		showDialog(null)
-}

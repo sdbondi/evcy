@@ -1,8 +1,5 @@
 <template name="_dialogs">
-	{{#if canShowDialog 'invite'}}
-	{{> _dialogs_invite}}
-	{{/if}}
-
+	{{{ yield_dialogs }}}
 </template>
 
 <template name="_dialogs_invite">
@@ -16,7 +13,24 @@
 		</div>
 		<div class="modal-footer">
 			<a id="btn-invite" href="#" class="btn btn-primary">Send Invite</a>
-			<a id="btn-close" href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+			<a id="btn-close" href="#" class="btn btn-link" data-dismiss="modal" aria-hidden="true">Close</a>
+		</div>
+	</div>
+</template>
+
+<template name="_dialogs_deleteAccountConfirm">
+	<div class="modal hide fade">
+		<div class="modal-body">
+			<p>Are you sure you want to delete you account forever?</p>
+			<p>Type <strong>delete</strong> in the following textbox to confirm.</p>
+			<input type="text" id="text-confirm-delete" required autofocus>
+			{{#if message }}
+			<p class="fc-gamma">{{message}}</p>
+			{{/if}}
+		</div>
+		<div class="modal-footer">
+			<button id="btn-confirm-delete" class="btn btn-danger">Delete</button>
+			<a data-dismiss="modal" class="btn btn-link">cancel</a>
 		</div>
 	</div>
 </template>

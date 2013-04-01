@@ -12,10 +12,10 @@
 					<p>You are an admin!</p>
 					{{/if}}
 
-					<div class="clear-fix">
+					<div>
 						<button id="btn-save" type="submit" class="btn btn-primary">Save</button>
-						<button id="btn-cancel" type="submit" class="btn">Cancel</button>
 					</div>
+					
 				</fieldset>
 
 			</form>
@@ -31,6 +31,8 @@
 				<small>{{ key }}: {{ value }}</small><br>
 			{{/each}}			
 			</p>
+
+			<button id="btn-delete-account" class="btn btn-danger"><i class="icon icon-warning-sign"></i> Delete your account!</button>
 		</div>
 	</div>
 </template>

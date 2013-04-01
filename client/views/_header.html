@@ -8,6 +8,11 @@
 
 				<h1 class="brand"><a href="/"><span class="fc-alpha">Ev</span><span class="fc-beta">Cy</span></a></h1>
 
+				{{#each alerts}}
+				<div data-id="{{id}}" class="alert alert-{{type}} alert-fixed fade in">{{message}} <a data-dismiss="alert" href="#" 
+					class="close"></a></div>
+				{{/each}}
+
 				{{#if currentUser }}
 				<div class="nav-collapse collapse">
 					<ul class="nav">
