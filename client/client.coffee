@@ -1,7 +1,7 @@
 # Pub/Sub
 Meteor.autosubscribe ->
-    Meteor.subscribe 'userData'
-    Meteor.subscribe 'allUserData'
+		Meteor.subscribe 'userData'
+		Meteor.subscribe 'allUserData'
 		Meteor.subscribe 'events'
 
 showLoading = (flag) ->
@@ -28,6 +28,9 @@ clearAlerts = ->
 	Session.set('_flashAlerts', [])
 
 Meteor.startup ->
+	Helpers.addScript '//api.filepicker.io/v1/filepicker.js', ->
+		filepicker.setKey('AReFnWtjMQ2ePGk0rVzd1z')
+
 	setPage('eventList')
 	showDialog(null)
 	clearAlerts()

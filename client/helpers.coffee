@@ -7,10 +7,19 @@ class Helpers
 		obj
 
 	@arrayify: (obj) ->
-    result = [];
-    for k, v of obj
-    	result.push(key:k, value:v)
-    result;
+		result = [];
+		for k, v of obj
+			result.push(key:k, value:v)
+		result;
+
+	@addScript: (path, loadCb = null, errorCb = null) ->
+		script = document.createElement('script')
+		script.type = 'text/javascript'
+		script.src = path
+		script.onload = loadCb
+		script.onerror = errorCb
+
+		document.getElementsByTagName('head')[0].appendChild(script)
 
 # Handlebars
 Handlebars.registerHelper 'arrayify', Helpers.arrayify
