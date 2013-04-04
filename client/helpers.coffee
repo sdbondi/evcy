@@ -1,5 +1,16 @@
 class Helpers
 
+	@selectTimeOptions: ->
+		html = ''
+		for i in [0..23]
+			h = if i % 12 == 0 then 12 else i % 12
+			H = i
+			ampm = if i >= 12 then 'pm' else 'am'
+			for i in [1..2]
+				m = if i % 2 == 0 then '30' else '00'
+				html += "<option value='#{H}:#{m}'>#{h}:#{m}#{ampm}</option>"
+		html
+
 	@serializeForm: (form) ->
 		data = $(form).serializeArray()
 		obj = {}
@@ -20,6 +31,13 @@ class Helpers
 		script.onerror = errorCb
 
 		document.getElementsByTagName('head')[0].appendChild(script)
+
+	@addCss: (path) ->
+		link = document.createElement('link')
+		link.rel = 'stylesheet'
+		link.href = path
+
+		document.getElementsByTagName('head')[0].appendChild(link)
 
 # Handlebars
 Handlebars.registerHelper 'arrayify', Helpers.arrayify

@@ -47,6 +47,10 @@ a:hover {
 	font-size: 72px;
 }
 
+.required {
+	color: red;
+}
+
 .ts-alpha {
 	text-shadow: 1px 1px 5px #AAA;
 }
@@ -56,9 +60,8 @@ a:hover {
 }
 
 [role="main"] {
-	padding: 20px;
+	padding: 20px 20px 10em;
 
-	height: 1000px;
 	box-shadow: 1px 1px 5px #000;
 }
 

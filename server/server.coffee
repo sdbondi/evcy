@@ -2,13 +2,13 @@ Meteor.publish 'events', ->
 	Events.find({})
 
 Meteor.publish 'userData', ->
-	Meteor.users.find({_id: this.userId}, fields: {pwd: 0})
+	Meteor.users.find({_id: this.userId})
 
 Meteor.publish 'allUserData', ->
 	user = Meteor.users.findOne(this.userId, fields: {admin: 1})
 	unless user?
 		throw new Meteor.Error(403, 'You are not logged in.')
-
+	console.log(user)
 	if user.admin
 		Meteor.users.find()
 	else

@@ -31,6 +31,9 @@ Meteor.startup ->
 	Helpers.addScript '//api.filepicker.io/v1/filepicker.js', ->
 		filepicker.setKey('AReFnWtjMQ2ePGk0rVzd1z')
 
+	Helpers.addCss '/css/datepicker.css'
+	Helpers.addScript '/js/bootstrap-datepicker.js', ->
+
 	setPage('eventList')
 	showDialog(null)
 	clearAlerts()
