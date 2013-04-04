@@ -1,1 +1,1 @@
-Invitations = new Meteor.Collection('invitations')
+@Invitations = new Meteor.Collection('invitations')

@@ -3,12 +3,15 @@
 </template>
 
 <template name="_dialogs_invite">
-	<div id="dialog-invite" class="modal hide fade">
+	<div id="dialog-invite" class="modal {{mustHide}}">
 		<div class="modal-body">
 			<p>Invite someone (with a Google account)</p>
 			<form action="">
 				<label for="field-email">Email</label>
 				<input id="field-email" name="email" type="text">
+				{{#if error }}
+					<p class="fc-gamma">{{error}}</p>
+				{{/if}}
 			</form>
 		</div>
 		<div class="modal-footer">

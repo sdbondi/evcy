@@ -1,5 +1,4 @@
-class Helpers
-
+class @Helpers
 	@selectTimeOptions: ->
 		html = ''
 		for i in [0..23]
@@ -38,6 +37,30 @@ class Helpers
 		link.href = path
 
 		document.getElementsByTagName('head')[0].appendChild(link)
+
+# UI / Session
+@showLoading = (flag) ->
+	Session.set('_loading', flag)
+
+@showAlert = (type, message) ->
+	flash = Session.get('_flashAlerts')
+	id = flash.length + 1
+	flash.push({id: id, type: type, message: message})
+	Session.set('_flashAlerts', flash)
+
+	setTimeout(->
+		Session.set('_flashAlerts', _.reject(flash, (alert) -> alert.id == id))
+	, 5000)
+
+@setPage = (page) ->
+	Session.set('_activePage', page)	
+
+@showDialog = (name) ->
+	Session.set('_currentDialog', name)
+	if name then $('.modal').show() else $('.modal').hide()
+
+@clearAlerts = ->
+	Session.set('_flashAlerts', [])
 
 # Handlebars
 Handlebars.registerHelper 'arrayify', Helpers.arrayify

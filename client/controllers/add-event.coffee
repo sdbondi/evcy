@@ -1,5 +1,4 @@
-Template.addEvent.selectTimeOptions = ->
-	Helpers.selectTimeOptions()
+Template.addEvent.selectTimeOptions = Helpers.selectTimeOptions
 
 Template.addEvent.today = ->
 	date = new Date()
