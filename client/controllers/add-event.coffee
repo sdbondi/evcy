@@ -1,10 +1,3 @@
-Template.addEvent.selectTimeOptions = Helpers.selectTimeOptions
-
-Template.addEvent.today = ->
-	date = new Date()
-
-	"#{date.getDate()}/#{date.getMonth()}/#{date.getYear()}"
-
 Template.addEvent.rendered = ->
 	$('.datepicker').datepicker
 		format: 'dd/mm/yyyy', 
@@ -18,9 +11,17 @@ Template.addEvent.rendered = ->
 Template.addEvent.eventImageSrc = (eventId) ->	
 	if file = Session.get('add_event.picture') then file.url else null
 
+Template.addEvent.yieldFrequencyTemplate = ->
+	freq = Session.get('add_event.frequency')
+	if freq && "frequency_#{freq}" of Template
+		Template["frequency_#{freq}"]() 
+
 Template.addEvent.events {
 	'change #picture-event': (e) ->
 		Session.set('add_event.picture', e.fpfile)
+
+	'change #event-frequency input': (e) ->
+		Session.set('add_event.frequency', e.target.value)
 
 	'click .cancel': (e) ->
 		e.preventDefault()
@@ -28,5 +29,4 @@ Template.addEvent.events {
 
 	'submit #form-add-event': (e) ->
 		e.preventDefault()
-		# ....
 }

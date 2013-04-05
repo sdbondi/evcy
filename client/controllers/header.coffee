@@ -21,5 +21,6 @@ Template._header.events {
 Template._header.alerts = ->
 	Session.get('_flashAlerts')
 
-Template._header.showLoading = ->
-	Session.get('_loading')
+this.onload = ->
+	$('.loading-banner').addClass('opacity-none')
+	

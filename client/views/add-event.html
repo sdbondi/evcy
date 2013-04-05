@@ -1,77 +1,112 @@
 <template name="addEvent">
-<form id="form-add-event">
-	<fieldset>
-		<legend>
-			<i class="icon icon-calendar"></i>
-			Create Event 
-			<div class="fr">
-				<button id="btn-add-event" type="submit" class="btn btn-primary">Save</button>
-				<button class="cancel btn">Cancel</button>
-			</div>
-		</legend>			
+	<form id="form-add-event">
+		<fieldset>
+			<legend>
+				<i class="icon icon-calendar"></i>
+				Create Event 
+				<div class="fr">
+					<button id="btn-add-event" type="submit" class="btn btn-primary">Save</button>
+					<button class="cancel btn">Cancel</button>
+				</div>
+			</legend>			
 
-		<div class="row-fluid">
-			<div class="span4">
-				<fieldset>
-					<legend>What</legend>
-					
-					<label for="field-title">Event <i class="required">*</i></label>		
-					<input id="field-title" name="event[title]" type="text" placeholder="Title for your event..." required autofocus>
+			<div class="row-fluid">
+				<div class="span3">
+					<fieldset>
+						<legend>What</legend>
+						
+						<label for="field-title">Event <i class="required">*</i></label>		
+						<input id="field-title" name="event[title]" type="text" placeholder="Title for your event..." required autofocus>
 
-					<label for="field-description">Description</label>
-					<textarea name="event[description]" id="field-description" cols="30" rows="5"></textarea>
+						<label for="field-description">Description</label>
+						<textarea name="event[description]" id="field-description" cols="30" rows="5"></textarea>
 
-					<div class="uploader">
-						<label for="picture-event">Picture</label>
-						{{#if eventImageSrc }}
-						<p>
-							<img src="{{ eventImageSrc }}" alt="Event image source" width="300" height="300">
-						</p>
-						{{/if}}
-						<input type="filepicker" name="picture" id="picture-event" data-fp-button-class="btn btn-primary">
-					</div>
-				</fieldset>		
-			</div>
-			
-			<div class="span4">
-				<fieldset>
-					<legend>Where</legend>
-					<label for="field-address">Place</label>
-					<input type="text" name="event[location][place]" placeholder="e.g. My house">
-
-					<label for="field-address">Address</label>
-					<input type="text" name="event[location][address]" placeholder="e.g. 123 House Place">
-
-					<label for="field-address">Map link</label>
-					<input type="text" name="event[location][maplink]" placeholder="e.g. http://goo.gl/maps/vVhtJ">
-				</fieldset>		
-			</div>
-
-			<div class="span4">
-				<fieldset>
-					<legend>When</legend>
-					
-					<div class="row">
-						<div class="span5">
-							<label for="event-date">Date</label>
-							<input type="text" name="event[date]" id="event-date" class="datepicker" value="{{today}}">
+						<div class="uploader">
+							<label for="picture-event">Picture</label>
+							{{#if eventImageSrc }}
+							<p>
+								<img src="{{ eventImageSrc }}" alt="Event image source" width="300" height="300">
+							</p>
+							{{/if}}
+							<input type="filepicker" name="picture" id="picture-event" data-fp-button-class="btn btn-primary">
 						</div>
-						<div class="offset2 span5">
-							<label for="event-time">Time</label>
-							<select name="event[time]" id="event-time">
-								{{{ selectTimeOptions }}}
-							</select>
+					</fieldset>		
+				</div>
+				
+				<div class="span3">
+					<fieldset>
+						<legend>Where</legend>
+						<label for="field-address">Place</label>
+						<input type="text" name="event[location][place]" placeholder="e.g. My house">
+
+						<label for="field-address">Address</label>
+						<input type="text" name="event[location][address]" placeholder="e.g. 123 House Place">
+
+						<label for="field-address">Map link</label>
+						<input type="text" name="event[location][maplink]" placeholder="e.g. http://goo.gl/maps/vVhtJ">
+					</fieldset>		
+				</div>
+
+				<div class="span5">
+					<fieldset>
+						<legend>When</legend>
+						<div class="row">
+							<div id="event-frequency" class="offset1 span10">
+								<input id="radio-frequency-once" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="onceoff">
+								<label class="badge radio-custom-label" for="radio-frequency-once">Once off</label>
+
+								<input id="radio-frequency-daily" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="daily">
+								<label class="badge radio-custom-label" for="radio-frequency-daily">Daily</label>
+
+								<input id="radio-frequency-weekly" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="weekly">
+								<label class="badge radio-custom-label" for="radio-frequency-weekly">Weekly</label>
+
+								<input id="radio-frequency-monthly" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="monthly">
+								<label class="badge radio-custom-label" for="radio-frequency-monthly">Monthly</label>
+
+								<input id="radio-frequency-yearly" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="yearly">
+								<label class="badge radio-custom-label" for="radio-frequency-yearly">Yearly</label>
+
+								<input id="radio-frequency-custom" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="custom">
+								<label class="badge radio-custom-label" for="radio-frequency-custom">Custom</label>
+							</div>
 						</div>
-					</div>
 
-				<fieldset>
-
+						{{{ yieldFrequencyTemplate }}}
+					<fieldset>
+				</div>
 			</div>
+		</fieldset>
+	</form>
+</template>
 
-		</div>
-	</fieldset>
+<template name="frequency_onceoff">
+	<label for="event-date">Date</label>
+	<input type="text" name="event[date]" id="event-date" class="datepicker" value="{{today}}">
 
+	<label for="event-time">Time</label>
+	<select name="event[time]" id="event-time">
+		{{{ selectTimeOptions }}}
+	</select>
+</template>
 
-</form>
+<template name="frequency_daily">
+	<label for="event-time">Time</label>
+	<select name="event[time]" id="event-time">
+		{{{ selectTimeOptions }}}
+	</select>
+</template>
 
+<template name="frequency_weekly">
+	<div id="event-frequency-dow">
+	{{#each dayOfWeek}}
+	<input id="radio-frequency-weekly-{{day}}" type="radio" class="visuallyhidden radio-custom" name="event[frequency][dow]" value="day">
+	<label class="badge {{#if weekend}}badge-warning{{/if}} radio-custom-label" for="radio-frequency-weekly-{{day}}">{{dayHuman}}</label>
+	{{/each}}
+	</div>
+
+	<label for="event-time">Time</label>
+	<select name="event[time]" id="event-time">
+		{{{ selectTimeOptions }}}
+	</select>
 </template>

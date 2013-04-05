@@ -1,10 +1,9 @@
-/* CSS declarations go here */
-
 body {
 	position: relative;
 	padding-top: 70px;
 	min-height: 500px;
 }
+
 
 a:hover {
 	text-decoration: none;
@@ -73,7 +72,7 @@ a:hover {
 	margin: 10px 25px;
 }
 
-.loading {
+.loading-banner {
   -webkit-transition: opacity 300ms;
 	-moz-transition: opacity 300ms;
   -o-transition: opacity 300ms;
@@ -91,7 +90,7 @@ a:hover {
 	font-weight: bold;
 }
 
-.visuallyHidden {
+.opacity-none {
 	opacity: 0;
 }
 
@@ -99,4 +98,247 @@ a:hover {
 	color: white;
 	float: right;
 	margin-top: 16px;
+}
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 &mTypography
+	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.error {
+  color: #CC3333;
+}
+
+/* font-family modifiers */
+.ff-mono {
+  font-family: monospace;
+}
+
+/* case modifiers */
+.case-u {
+  text-transform: uppercase;
+}
+
+.case-l {
+  text-transform: lowercase;
+}
+
+.case-n {
+  text-transform: none;
+}
+
+.case-c {
+  text-transform: capitalize;
+}
+
+/* vertical align modifiers */
+.va-t {
+  vertical-align: top;
+}
+
+.va-m {
+  vertical-align: middle;
+}
+
+.va-b {
+  vertical-align: bottom;
+}
+
+.va-bl {
+  vertical-align: baseline;
+}
+
+.va-sup {
+  vertical-align: super;
+}
+
+.va-sub {
+  vertical-align: sub;
+}
+
+.va-tt {
+  vertical-align: text-top;
+}
+
+.va-tb {
+  vertical-align: text-bottom;
+}
+
+/* Floating & Alignment Modifiers */
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.al {
+  text-align: left;
+}
+
+.ac {
+  text-align: center;
+}
+
+.ar {
+  text-align: right;
+}
+
+/* ==|== WordPress / Helper editor styles ======================================
+	 ========================================================================== */
+/* Alignment (post images) */
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alignleft {
+  display: inline;
+  float: left;
+  margin: 5px 14px 5px 0;
+}
+
+.alignright {
+  display: inline;
+  float: right;
+  margin: 5px 0 5px 14px;
+}
+
+/* Image Captions */
+.wp-caption {
+  max-width: 100%;
+}
+
+.wp-caption-text {
+  margin: 7px 0 21px;
+  margin: 0.5rem 0 1.5rem;
+  font-style: italic;
+  color: white;
+}
+
+/* =============================================================================
+	 &Backgrounds & Borders
+	 ========================================================================== */
+/* =============================================================================
+	 &Layout
+	 ========================================================================== */
+/* use to set max width of content areas */
+.wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 14px;
+  padding-left: 1rem;
+  padding-right: 14px;
+  padding-right: 1rem;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 &mLayout
+	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* display level modifiers */
+.d-block {
+  display: block;
+}
+
+/* required for <button>, <input>, and <textarea>*/
+input.d-block,
+textarea.d-block,
+button.d-block {
+  width: 100%;
+}
+
+.d-iblock {
+  display: inline-block;
+}
+
+/* =============================================================================
+	 &Helpers
+	 ========================================================================== */
+/*
+ * For image replacement: http://mopo.ws/wj7fIN
+ * Nicholas Gallagher's detailed post on new .ir - http://mopo.ws/wHCSUu
+ * Causes issues with em based margins on elements using .ir
+ */
+.ir {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+}
+
+.ir:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 150%;
+}
+
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+:root .visuallyhidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+}
+
+.ie8 .visuallyhidden-ie8 {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+}
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus {
+  position: static;
+  clip: auto;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+}
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible {
+  visibility: hidden;
+}
+
+/* Clearfix for containing floats: h5bp.com/q */
+.cf:before, .cf:after {
+  content: "";
+  display: table;
+  height: 0;
+}
+
+.cf:after {
+  clear: both;
+}
+
+.cf {
+  *zoom: 1;
+}
+
+/* ==========================================================================
+	 &Forms
+	 ========================================================================== */
+.radio-custom-label {
+	-webkit-transition: background-color 200ms linear;
+}
+
+.radio-custom:checked + .radio-custom-label {
+	background-color: #006dcc !important;
 }

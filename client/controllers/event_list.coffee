@@ -1,7 +1,4 @@
 # EventList
-Template.eventList.rendered = ->
-	showLoading(false)
-
 Template.eventList.eventItems = ->
 	Events.find({})
 

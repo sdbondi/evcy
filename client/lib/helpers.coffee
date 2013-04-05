@@ -38,10 +38,7 @@ class @Helpers
 
 		document.getElementsByTagName('head')[0].appendChild(link)
 
-# UI / Session
-@showLoading = (flag) ->
-	Session.set('_loading', flag)
-
+# UI 
 @showAlert = (type, message) ->
 	flash = Session.get('_flashAlerts')
 	id = flash.length + 1
@@ -62,7 +59,15 @@ class @Helpers
 @clearAlerts = ->
 	Session.set('_flashAlerts', [])
 
-# Handlebars
+# Global Handlebar helpers
+Handlebars.registerHelper 'today', ->
+	date = new Date()
+	"#{date.getDate()}/#{date.getMonth()}/#{date.getYear()}"
+
+Handlebars.registerHelper 'dayOfWeek', ->
+	{day: day.toLowerCase(), dayHuman: day, weekend: day in ['Saturday', 'Sunday']} for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+Handlebars.registerHelper 'selectTimeOptions', Helpers.selectTimeOptions
 Handlebars.registerHelper 'arrayify', Helpers.arrayify
 Handlebars.registerHelper 'isEqual', (v1, vn...) ->
 	for v in vn

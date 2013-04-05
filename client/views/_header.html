@@ -1,8 +1,9 @@
 <template name="_header">
-	<span class="loading {{#unless showLoading }}visuallyHidden{{/unless}}">loading...</span>
+	<span class="loading-banner">loading...</span>
 	
 	<div class="navbar navbar-inverse navbar-fixed-top">		
 		<div class="navbar-inner">
+			{{#isolate}}
 			<div class="container">
 				{{ loginButtons align="right" }}					
 
@@ -26,6 +27,7 @@
 				</div>
 				{{/if}}
 			</div>
+			{{/isolate}}
 		</div>
 	</div>
 </template>
