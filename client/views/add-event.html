@@ -52,7 +52,7 @@
 						<legend>When</legend>
 						<div class="row">
 							<div id="event-frequency" class="offset1 span10">
-								<input id="radio-frequency-once" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="onceoff">
+								<input id="radio-frequency-once" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="onceoff" {{ freqChecked 'onceoff' }}>
 								<label class="badge radio-custom-label" for="radio-frequency-once">Once off</label>
 
 								<input id="radio-frequency-daily" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="daily">
@@ -100,7 +100,7 @@
 <template name="frequency_weekly">
 	<div id="event-frequency-dow">
 	{{#each dayOfWeek}}
-	<input id="radio-frequency-weekly-{{day}}" type="radio" class="visuallyhidden radio-custom" name="event[frequency][dow]" value="day">
+	<input id="radio-frequency-weekly-{{ day }}" type="radio" class="visuallyhidden radio-custom" name="event[frequency][dow]" value="{{ day }}">
 	<label class="badge {{#if weekend}}badge-warning{{/if}} radio-custom-label" for="radio-frequency-weekly-{{day}}">{{dayHuman}}</label>
 	{{/each}}
 	</div>

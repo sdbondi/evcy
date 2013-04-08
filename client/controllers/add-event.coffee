@@ -8,6 +8,12 @@ Template.addEvent.rendered = ->
 	if window.filepicker
 		filepicker.constructWidget(elem) for elem in $('[type="filepicker"]')
 
+	Session.set('add_event.frequency', 'onceoff')
+
+Template.addEvent.freqChecked = (freq) ->
+	debugger
+	Session.equals('add_event.frequency', freq)
+
 Template.addEvent.eventImageSrc = (eventId) ->	
 	if file = Session.get('add_event.picture') then file.url else null
 

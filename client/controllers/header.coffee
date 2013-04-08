@@ -5,9 +5,7 @@ Template._header.events {
 		showDialog(null)
 		$target = $(e.target)
 		
-		page = $target.data('page')
-
-		return unless page
+		return unless page = $target.data('page')
 
 		$target.closest('li').addClass('active')
 			.siblings().removeClass('active')
