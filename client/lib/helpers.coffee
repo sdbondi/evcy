@@ -60,9 +60,9 @@ class @Helpers
 	Session.set('_flashAlerts', [])
 
 # Global Handlebar helpers
-Handlebars.registerHelper 'today', ->
-	date = new Date()
-	"#{date.getDate()}/#{date.getMonth()}/#{date.getYear()}"
+Handlebars.registerHelper 'today', -> Date.today().toString('dd/MM/yyyy')
+Handlebars.registerHelper 'todayDay', -> Date.today().getDate()
+Handlebars.registerHelper 'todayWeek', -> Math.ceil(Date.today().getDate() / 7)
 
 Handlebars.registerHelper 'dayOfWeek', ->
 	{day: day.toLowerCase(), dayHuman: day, weekend: day in ['Saturday', 'Sunday']} for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']

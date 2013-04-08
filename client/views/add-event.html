@@ -1,5 +1,5 @@
 <template name="addEvent">
-	<form id="form-add-event">
+	<form id="form-event">
 		<fieldset>
 			<legend>
 				<i class="icon icon-calendar"></i>
@@ -10,6 +10,7 @@
 				</div>
 			</legend>			
 
+			{{#isolate}}
 			<div class="row-fluid">
 				<div class="span3">
 					<fieldset>
@@ -51,62 +52,134 @@
 					<fieldset>
 						<legend>When</legend>
 						<div class="row">
-							<div id="event-frequency" class="offset1 span10">
+							<div id="event-frequency" class="offset1 span11">
 								<input id="radio-frequency-once" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="onceoff" {{ freqChecked 'onceoff' }}>
 								<label class="badge radio-custom-label" for="radio-frequency-once">Once off</label>
 
-								<input id="radio-frequency-daily" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="daily">
+								<input id="radio-frequency-daily" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="daily" {{ freqChecked 'daily' }}>
 								<label class="badge radio-custom-label" for="radio-frequency-daily">Daily</label>
 
-								<input id="radio-frequency-weekly" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="weekly">
+								<input id="radio-frequency-weekly" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="weekly" {{ freqChecked 'weekly' }}>
 								<label class="badge radio-custom-label" for="radio-frequency-weekly">Weekly</label>
 
-								<input id="radio-frequency-monthly" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="monthly">
+								<input id="radio-frequency-monthly" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="monthly" {{ freqChecked 'monthly' }}>
 								<label class="badge radio-custom-label" for="radio-frequency-monthly">Monthly</label>
 
-								<input id="radio-frequency-yearly" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="yearly">
+								<input id="radio-frequency-yearly" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="yearly" {{ freqChecked 'yearly' }}>
 								<label class="badge radio-custom-label" for="radio-frequency-yearly">Yearly</label>
 
-								<input id="radio-frequency-custom" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="custom">
+								<input id="radio-frequency-custom" type="radio" class="visuallyhidden radio-custom" name="event[frequency]" value="custom" {{ freqChecked 'custom' }}>
 								<label class="badge radio-custom-label" for="radio-frequency-custom">Custom</label>
 							</div>
 						</div>
+
+						<hr>
 
 						{{{ yieldFrequencyTemplate }}}
 					<fieldset>
 				</div>
 			</div>
+			{{/isolate}}
 		</fieldset>
 	</form>
 </template>
 
-<template name="frequency_onceoff">
-	<label for="event-date">Date</label>
-	<input type="text" name="event[date]" id="event-date" class="datepicker" value="{{today}}">
+<template name="_partial_starting_from">
+	<label for="event-date">starting from</label>
+	<input type="text" name="event[when][startDate]" id="event-date" class="datepicker" value="{{today}}">
+</template>
 
-	<label for="event-time">Time</label>
-	<select name="event[time]" id="event-time">
+<template name="frequency_onceoff">
+	<label for="event-date">on the</label>
+	<input type="text" name="event[when][date]" id="event-date" class="datepicker" value="{{today}}">
+
+	<label for="event-time">at</label>
+	<select name="event[when][time]" id="event-time">
 		{{{ selectTimeOptions }}}
 	</select>
 </template>
 
 <template name="frequency_daily">
-	<label for="event-time">Time</label>
-	<select name="event[time]" id="event-time">
+
+	<label for="event-time">at</label>
+	<select name="event[when][time]" id="event-time">
+		{{{ selectTimeOptions }}}
+	</select>
+
+	<div>
+		<input id="radio-frequency-everyday" type="radio" class="visuallyhidden radio-custom" name="event[when][frequency][weekdays]" value="everyday" checked>
+		<label class="badge radio-custom-label" for="radio-frequency-everyday">Everyday</label>
+
+		<input id="radio-frequency-weekdaysonly" type="radio" class="visuallyhidden radio-custom" name="event[when][frequency][weekdays]" value="true">
+		<label class="badge radio-custom-label" for="radio-frequency-weekdaysonly">Weekdays only</label>
+
+		<input id="radio-frequency-weekendsonly" type="radio" class="visuallyhidden radio-custom" name="event[when][frequency][weekdays]" value="true">
+		<label class="badge radio-custom-label" for="radio-frequency-weekendsonly">Weekends only</label>
+	</div>
+
+	{{> _partial_starting_from}}
+
+</template>
+
+<template name="frequency_weekly">
+	<p>every</p>
+	<div id="event-frequency-dow">
+		{{#each dayOfWeek}}
+		<input id="checkbox-frequency-dow-{{ day }}" type="checkbox" class="visuallyhidden checkbox-custom" name="event[when][frequency][dow][]" value="{{ day }}">
+		<label class="badge {{#if weekend}}badge-warning{{/if}} checkbox-custom-label" for="checkbox-frequency-dow-{{day}}">{{dayHuman}}</label>
+		{{/each}}
+	</div>
+
+	{{> _partial_starting_from}}
+
+	<label for="event-time">at</label>
+	<select name="event[when][time]" id="event-time">
 		{{{ selectTimeOptions }}}
 	</select>
 </template>
 
-<template name="frequency_weekly">
-	<div id="event-frequency-dow">
-	{{#each dayOfWeek}}
-	<input id="radio-frequency-weekly-{{ day }}" type="radio" class="visuallyhidden radio-custom" name="event[frequency][dow]" value="{{ day }}">
-	<label class="badge {{#if weekend}}badge-warning{{/if}} radio-custom-label" for="radio-frequency-weekly-{{day}}">{{dayHuman}}</label>
-	{{/each}}
+<template name="frequency_monthly">
+	<div class="accordion" id="accordion-monthly">
+	  <div class="accordion-group">
+	    <div class="accordion-heading">
+	    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-dayofmonth" href="#content-dayofmonth">Day of the month</a>
+	    </div>
+    	<div id="content-dayofmonth" class="accordion-body collapse in">
+      	<div class="accordion-inner">
+					<label for="event-dayofmonth" class="d-iblock">on the</label>
+					<input type="number" name="event[when][dayofmonth]" id="event-dayofmonth" class="d-iblock short-input" value="{{todayDay}}">
+					<p class="d-iblock">day of every month</p>
+      	</div>
+    	</div>
+	  </div>
+	  <div class="accordion-group">
+	    <div class="accordion-heading">
+	      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-monthly" href="#content-weekofmonth">
+	        Week of the month
+	      </a>
+	    </div>
+	    <div id="content-weekofmonth" class="accordion-body collapse">
+	      <div class="accordion-inner">
+					<label for="event-weekofmonth" class="d-iblock">on the</label>
+					<input type="number" name="event[when][weekofmonth]" id="event-weekofmonth" class="d-iblock short-input" value="{{todayWeek}}">
+					<p class="d-iblock">week of the month</p>
+
+					<p>on these days</p>
+	        {{#each dayOfWeek}}
+					<input id="checkbox-frequency-dow-{{ day }}" type="checkbox" class="visuallyhidden checkbox-custom" name="event[when][frequency][dow][]" value="{{ day }}">
+					<label class="badge {{#if weekend}}badge-warning{{/if}} checkbox-custom-label" for="checkbox-frequency-dow-{{day}}">{{dayHuman}}</label>
+					{{/each}}
+	      </div>
+	    </div>
+
+	    <p><strong>Next occurrence:</strong> {{nextMonthlyOccurence}}</p>
+	  </div>
 	</div>
 
-	<label for="event-time">Time</label>
-	<select name="event[time]" id="event-time">
+	<label for="event-time">at</label>
+	<select name="event[when][time]" id="event-time">
 		{{{ selectTimeOptions }}}
 	</select>
+
+	{{> _partial_starting_from}}
 </template>

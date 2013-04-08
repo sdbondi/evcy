@@ -1,18 +1,26 @@
 Template.addEvent.rendered = ->
 	$('.datepicker').datepicker
 		format: 'dd/mm/yyyy', 
-		startDate: new Date(),
+		startDate: 1.day().ago(),
 		autoclose: true,
 		todayHighlight: true
+
+	$('.accordion').collapse
+		toggle: false
 
 	if window.filepicker
 		filepicker.constructWidget(elem) for elem in $('[type="filepicker"]')
 
-	Session.set('add_event.frequency', 'onceoff')
-
 Template.addEvent.freqChecked = (freq) ->
-	debugger
-	Session.equals('add_event.frequency', freq)
+	val = Session.get('add_event.frequency')
+	return 'checked' unless val? && freq != 'onceoff'
+	val == freq && 'checked'
+
+Template.addEvent.nextMonthlyOccurrence = ->
+	data = Helpers.serializeForm(this.find('#form-event'))
+	cycle = new Evcy.EventCycle()
+	cycle.setFrequency(EventCycle.FREQ_MONTHLY)
+	cycle.getNextDate().toString('dddd, ddS MMM yyyy')
 
 Template.addEvent.eventImageSrc = (eventId) ->	
 	if file = Session.get('add_event.picture') then file.url else null
@@ -33,6 +41,6 @@ Template.addEvent.events {
 		e.preventDefault()
 		setPage('eventList')
 
-	'submit #form-add-event': (e) ->
+	'submit #form-event': (e) ->
 		e.preventDefault()
 }

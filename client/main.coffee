@@ -10,6 +10,8 @@ Meteor.startup ->
 
 	Helpers.addCss '/css/datepicker.css'
 	Helpers.addScript '/js/bootstrap-datepicker.js'
+	
+	Helpers.addScript '/js/date.js'
 
 	setPage('eventList')
 	showDialog(null)
